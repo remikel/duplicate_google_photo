@@ -12,18 +12,18 @@ import './styles/app.scss';
 import './bootstrap';
 import './scripts/materialize-int.js';
 
-
-$('#leftcheck').on('click', function () {
+$('#checkAll').on('click', function () {
+    console.log('check');
     if ($(this).is(':checked')) {
-        $('.left').attr('checked', true);
+        $('.rowToDelete').attr('checked', true);
     } else {
-        $('.left').attr('checked', false);
+        $('.rowToDelete').attr('checked', false);
     }
 })
-$('#rightcheck').on('click', function () {
-    if ($(this).is(':checked')) {
-        $('.right').attr('checked', true);
-    } else {
-        $('.right').attr('checked', false);
-    }
+$('#deleteRows').on('click', function () {
+    $('.rowToDelete').each(function () {
+        if ($(this).is(':checked')) {
+            $(this).parent().parent().parent().fadeOut();
+        }
+    })
 })

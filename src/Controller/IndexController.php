@@ -102,13 +102,12 @@ class IndexController extends AbstractController
             if (!$albumId) {
                 $albumId = $this->photoService->createAlbum();
             }
-            // dump($albumId);die;
             $mediaIds = array_keys($request->request->all());
             $this->photoService->addToAlbum($mediaIds, $albumId);
-            dump($request);
-            die;
         }
 
         return $this->render('index/duplicates.html.twig');
     }
+
+    
 }
