@@ -22,19 +22,18 @@
 		{% endblock %}
 	</head>
 	<body>
-
+		{% block body %}{% endblock %}
 		{% for label, messages in app.flashes %}
 			{% for message in messages %}
-				<div class="floating alert card blue lighten-4 blue-text text-darken-3 alert-{{label}}">
+				<div class="alert card blue lighten-4 blue-text text-darken-3 alert-{{label}}">
 					<div class="card-content">
 						<p>
-							<i class="material-icons">{{label}}</i>
+							<i class="material-icons">info</i>
 							<span>{{ message }}</span>
 						</p>
 					</div>
 				</div>
 			{% endfor %}
 		{% endfor %}
-		{% block body %}{% endblock %}
 	</body>
 </html>

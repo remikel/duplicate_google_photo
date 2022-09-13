@@ -1,0 +1,51 @@
+<div class="row">
+	<div class="col s6">
+		<label>
+			<input type="checkbox" name="checkAll[]" id="leftcheck"/>
+			<span class="global-checkbox">Check all left</span>
+		</label>
+	</div>
+	<div class="col s6">
+		<label>
+			<input type="checkbox" name="checkAll[]" id="rightcheck"/>
+			<span class="global-checkbox">Check all right</span>
+		</label>
+	</div>
+</div>
+<form action="/moveToDeleteAlbum" method="POST">
+	{% for photos in photoPairs %}
+		<div class="row">
+			<div class="col s6">
+				<label>
+					<input type="checkbox" name="{{photos[1].id }}" class="left" data-id="{{photos[0].id }}" data-col="0"/>
+					<span>{{photos[0].filename}}</span>
+				</label>
+				<a href="{{photos[0].getProductUrl()}}" target="_blank">
+					<img src="{{photos[0].getBaseUrl()}}=w256-h256" alt="{{photos[0].filename}}"/>
+				</a>
+				<legend>
+					{{photos[0].getMediaMetadata().creationTime.seconds|date("d M Y h:i:s", false) }}
+					<i>{{ photos[0].getMediaMetadata().width ~ 'x' ~ photos[0].getMediaMetadata().height  }}</i>
+				</legend>
+			</div>
+			<div class="col s6">
+				<label>
+					<input type="checkbox" name="{{photos[1].id }}" class="right" data-id="{{photos[1].id }}" data-col="1"/>
+					<span>{{photos[1].filename}}</span>
+				</label>
+				<a href="{{photos[1].getProductUrl()}}" target="_blank">
+					<img src="{{photos[1].getBaseUrl()}}=w256-h256" alt="{{photos[1].filename}}"/>
+				</a>
+				<legend>
+					{{photos[1].getMediaMetadata().creationTime.seconds|date("d M Y h:i:s", false) }}
+					<i>{{ photos[1].getMediaMetadata().width ~ 'x' ~ photos[1].getMediaMetadata().height  }}</i>
+				</legend>
+			</div>
+		</div>
+	{% endfor %}
+
+	<button type="submit" class="waves-effect waves-light btn red">
+		<i class="material-icons">delete</i>
+		<span class="float-btn-label">Move to album "To Delete"</span>
+	</button>
+</form>

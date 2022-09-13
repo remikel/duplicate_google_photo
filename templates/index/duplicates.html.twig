@@ -1,0 +1,139 @@
+{% extends 'base_logged.html.twig' %}
+
+{% block title %}Duplicates in your google Photos
+{% endblock %}
+
+{% block body %}
+	<section class="demo-content">
+		<form id="search" method="POST">
+			<div class="filter-group">
+				<h4>Duplicate if the same :</h4>
+				<div class="row">
+
+					<label class="col s2" for="creationTime">
+						<input type="checkbox" name="compares[]" id="creationTime" class="mdl-checkbox__input" value="mediaData.creationTime" checked>
+						<span class="mdl-checkbox__label">Date and Time</span>
+					</label>
+					<label class="col s2" for="filename">
+						<input type="checkbox" name="compares[]" id="filename" class="mdl-checkbox__input" value="filename" checked>
+						<span class="mdl-checkbox__label">Filename</span>
+					</label>
+					<label class="col s2" for="camera">
+						<input type="checkbox" name="compares[]" id="camera" class="mdl-checkbox__input" value="mediaData.photo.cameraModel" checked>
+						<span class="mdl-checkbox__label">Camera Model</span>
+					</label>
+					<label class="col s2" for="height">
+						<input type="checkbox" name="compares[]" id="height" class="mdl-checkbox__input" value="mediaData.height">
+						<span class="mdl-checkbox__label">Height</span>
+					</label>
+					<label class="col s2" for="width">
+						<input type="checkbox" name="compares[]" id="width" class="mdl-checkbox__input" value="mediaData.width">
+						<span class="mdl-checkbox__label">Width</span>
+					</label>
+					<label class="col s2" for="pixelMatch">
+						<input type="checkbox" name="compares[]" id="pixelMatch" class="mdl-checkbox__input" value="pixelMatch">
+						<span class="mdl-checkbox__label">Post pixel check (bêta, very slow)</span>
+					</label>
+				</div>
+			</div>
+
+			<div class="filter-group">
+				<h4>Type of medias:</h4>
+				<div class="row">
+
+					<label class="col s2" for="photo">
+						<input type="radio" name="type" id="photo" class="mdl-radio__button" value="PHOTO" checked>
+						<span class="mdl-radio__label">Photos</span>
+					</label>
+					<label class="col s2" for="video">
+						<input type="radio" name="type" id="video" class="mdl-radio__button" value="VIDEO">
+						<span class="mdl-radio__label">videos</span>
+					</label>
+				</div>
+			</div>
+
+			<div class="filter-group">
+				<h4>Number of media to check, more you put, longer it is</h4>
+				<div class="row">
+					<div class="col s4">
+
+						<div class="mdl-textfield mdl-js-textfield">
+							<input required class="mdl-textfield__input" type="text" name="photosToLoad" value="500"/>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<h4>So it's better to split by time (from 2007 to 2008 for example)</h4>
+			<div id="rowDateRange">
+				<h5>Start date</h5>
+				<div class="row">
+					<div class="col s4">
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="startYear" value="2008" name="startYear">
+							<label class="mdl-textfield__label" for="startYear">Year (YYYY)</label>
+						</div>
+					</div>
+					<div class="col s4">
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="startMonth" value="07" name="startMonth">
+							<label class="mdl-textfield__label" for="startMonth">Month (MM)</label>
+						</div>
+					</div>
+					<div class="col s4">
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="startDay" value="2" name="startDay">
+							<label class="mdl-textfield__label" for="startDay">Day (DD)</label>
+						</div>
+					</div>
+				</div>
+
+				<h5>End date</h5>
+				<div class="row">
+					<div class="col s4">
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="endYear" value="2008" name="endYear">
+							<label class="mdl-textfield__label" for="endYear">Year (YYYY)</label>
+						</div>
+					</div>
+					<div class="col s4">
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="endMonth" value="07" name="endMonth">
+							<label class="mdl-textfield__label" for="endMonth">Month (MM)</label>
+						</div>
+					</div>
+					<div class="col s4">
+						<div class="mdl-textfield mdl-js-textfield">
+							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="endDay" value="20" name="endDay">
+							<label class="mdl-textfield__label" for="endDay">Day (DD)</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<button type="submit" class="waves-effect waves-light btn">
+					<i class="material-icons">search</i>
+					<span class="float-btn-label">Search duplicates</span>
+				</button>
+			</div>
+		</form>
+		{% if searched %}
+			<div>
+				<h2>Duplicates</h2>
+				<p class="subhead mdl-color-text--grey-700">
+					Now check with your eyes quickly if they're really the same and delete the duplicates ! The best resolution is on the left !
+				</p>
+			</div>
+			{% if photoPairs|length > 0 %}
+				<div id="images-container">
+					{% include 'index/partials/list.html.twig' with { 'photoPairs': photoPairs } %}
+				</div>
+			{% else %}
+				<div id="images_empty">
+					<img src="/imgs/null-results.png">
+					<p>No results, try searching again</p>
+				</div>
+			{% endif %}
+		{% endif %}
+	</section>
+{% endblock %}

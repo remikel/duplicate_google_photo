@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{% block title %}Duplicates in your google Photos{% endblock %}
 
 {% block body %}
 	<header class="demo-header">
@@ -35,9 +35,9 @@
                 </div>
 				<h4>Let's start now and connect to your google photos ! None of your datas is saved anywhere. It's fully transparent, fully free, fully respect your anonymity.</h4>
 				<p>
-					<button class="gp-button raised" id="login">
+					<a class="gp-button raised" id="login" href="/connect">
 						Connect to Google Photos
-					</button>
+					</a>
 				</p>
 				<p>This app will connect to your google photos then access to all the pictures to read them, nothing will be modified or deleted.
 					Then the app will help you to find the duplicated pictures and you can decide by yourself if you want to delete the manually.

@@ -11,3 +11,19 @@ import './styles/app.scss';
 // start the Stimulus application
 import './bootstrap';
 import './scripts/materialize-int.js';
+
+
+$('#leftcheck').on('click', function () {
+    if ($(this).is(':checked')) {
+        $('.left').attr('checked', true);
+    } else {
+        $('.left').attr('checked', false);
+    }
+})
+$('#rightcheck').on('click', function () {
+    if ($(this).is(':checked')) {
+        $('.right').attr('checked', true);
+    } else {
+        $('.right').attr('checked', false);
+    }
+})

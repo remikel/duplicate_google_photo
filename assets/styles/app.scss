@@ -115,7 +115,7 @@ pre {
     padding-top: 2.5%;
 }
 
-.demo-content {
+.demo-content, .page-content {
     border-radius: 2px;
     margin: 80px 56px;
     padding:50px;
@@ -262,4 +262,12 @@ p .gp-button {
 .load-message {
     font-size: 25px;
     color: #efefef;
+}
+
+.global-checkbox{
+    font-size: 1.5rem !important;
+}
+
+img{
+    max-width:100%;
 }
