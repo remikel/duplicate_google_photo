@@ -8,12 +8,7 @@ use Google\Photos\Library\V1\PhotosLibraryResourceFactory;
 use Google\Client;
 use Google\Photos\Library\V1\FiltersBuilder;
 use Google\Photos\Library\V1\MediaTypeFilter\MediaType;
-use Google\Service\Libraryagent;
 use Google\Type\Date;
-use GPBMetadata\Google\Photos\Library\V1\PhotosLibrary;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class GooglePhotoService
@@ -138,15 +133,13 @@ class GooglePhotoService
 
     public function addToAlbum($mediaItemIds, $albumId)
     {
-        try{
-            // dump($mediaItemIds, $albumId);die;
+        try {
             $photosLibraryClient = $this->getPhotoLibraryClient();
-            $response = $photosLibraryClient->batchAddMediaItemsToAlbum(['AN2aG8W4cDEhD_7HNwN2Vy6BdwE7m9FDYBYP184MDk5D05LCxkCrODC4It8iub6gBI8Zh6q_nkmcwd2aHbTKXpNjDtD-DeQcZQ'], $albumId);
-            dump($response);die;
-        } catch(\Exception $e){
-            dump($e);die;
+            $response = $photosLibraryClient->batchAddMediaItemsToAlbum($mediaItemIds, $albumId);
+        } catch (\Exception $e) {
+            dump($e);
+            die;
         }
-
     }
 
     private function isSame($photo1, $photo2, $mediaData1, $mediaData2, $compares)
@@ -163,9 +156,15 @@ class GooglePhotoService
             $same = false;
         } else if (in_array('mediaData.width', $compares) && ($mediaData1->getWidth() != $mediaData2->getWidth())) {
             $same = false;
-        } 
+        }
         if ($photo1->getProductUrl() == $photo2->getProductUrl()) {
             $same = false;
+        }
+        if ($same && in_array('pixelMatch', $compares)) {
+            $diff = $this->comparePixels($photo1, $photo2);
+            if ($diff < 0.95){
+                $same = false;
+            }
         }
         return $same;
     }
@@ -174,7 +173,7 @@ class GooglePhotoService
     public function searchDuplicates($parameters)
     {
         $photos = $this->getPhotos($parameters);
-        if (!is_array($photos)){
+        if (!is_array($photos)) {
             return $photos;
         }
         $compares = $parameters['compares'];
@@ -188,25 +187,29 @@ class GooglePhotoService
                 $mediaData2 = $photo2->getMediaMetadata();
                 $same = $this->isSame($photo1, $photo2, $mediaData1, $mediaData2, $compares);
                 if ($same) {
-                    if (true) {
-                        if ($mediaData1->getWidth() > $mediaData2->getWidth()) {
-                            $links[] = [$photo1, $photo2];
-                        } else {
-                            $links[] = [$photo2, $photo1];
-                        }
+                    if ($mediaData1->getWidth() > $mediaData2->getWidth()) {
+                        $links[] = [$photo1, $photo2];
+                    } else {
+                        $links[] = [$photo2, $photo1];
                     }
-                    // else if (compares.includes('pixelMatch') && await samePixel($photo1, $photo2) < 4) {
-                    //   if ($photo1.mediaMetadata.width > $photo2.mediaMetadata.width) {
-                    //     links[] = [ $photo1, $photo2 ];
-                    //   }
-                    //   else {
-                    //     links[] = [ $photo2, $photo1 ];
-                    //   }
-                    // }
                 }
             }
         }
-        
         return $links;
+    }
+    private function comparePixels($photo1, $photo2)
+    {
+        $url1 = $photo1->getBaseUrl() . '=w64-h64';
+        $image1 = file_get_contents($url1);
+        $img1 = new \Imagick();
+        $img1->readImageBlob($image1);
+        $url2 = $photo2->getBaseUrl() . '=w64-h64';
+        $image2 = file_get_contents($url2);
+        $img2 = new \Imagick();
+        $img2->readImageBlob($image2);
+        $result = $img1->compareImages($img2, -1);
+        $img1->destroy();
+        $img2->destroy();
+        return $result[1];
     }
 }
