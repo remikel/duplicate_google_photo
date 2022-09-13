@@ -94,11 +94,11 @@ class GooglePhotoService
         $filtersBuilder = new FiltersBuilder();
         $filtersBuilder->addDateRange($startDate, $endDate);
 
-        if ($parameters['type'] == 'PHOTO') {
+        // if ($parameters['type'] == 'PHOTO') {
             $filtersBuilder->setMediaType(MediaType::PHOTO);
-        } else {
-            $filtersBuilder->setMediaType(MediaType::VIDEO);
-        }
+        // } else {
+        //     $filtersBuilder->setMediaType(MediaType::VIDEO);
+        // }
 
         return $filtersBuilder;
     }

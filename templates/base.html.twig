@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>
 			{% block title %}Welcome!
 			{% endblock %}
@@ -22,7 +22,15 @@
 		{% endblock %}
 	</head>
 	<body>
-
+		<header>
+			<form action="https://www.paypal.com/donate" method="post" target="_top">
+				<input type="hidden" name="business" value="remikel0729@yahoo.fr"/>
+				<input type="hidden" name="item_name" value="Duplicates Google Photos"/>
+				<input type="hidden" name="currency_code" value="USD"/>
+				<input type="image" src="https://www.paypalobjects.com/en_US/FR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button"/>
+				<img alt="" border="0" src="https://www.paypal.com/en_FR/i/scr/pixel.gif" width="1" height="1"/>
+			</form>
+		</header>
 		{% for label, messages in app.flashes %}
 			{% for message in messages %}
 				<div class="floating alert card blue lighten-4 blue-text text-darken-3 alert-{{label}}">

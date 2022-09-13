@@ -66,11 +66,15 @@ class IndexController extends AbstractController
                         $photoPairs->getBasicMessage()
                     );
                     return $this->render('index/duplicates.html.twig', array(
-                        'photoPairs' => $photoPairs,
+                        'photoPairs' => [],
                         'searched' => false
                     ));
                 } else {
-                    dump($photoPairs);die;
+                    $this->addFlash(
+                        'report',
+                        $photoPairs->getMessage()
+                    );
+                    return $this->redirectToRoute('app_index');
                 }
             }
             return $this->render('index/duplicates.html.twig', array(

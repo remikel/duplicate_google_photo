@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>
 			{% block title %}Welcome!
 			{% endblock %}
@@ -22,6 +22,25 @@
 		{% endblock %}
 	</head>
 	<body>
+		<header>
+			<form action="https://www.paypal.com/donate" method="post" target="_top">
+				<input type="hidden" name="business" value="remikel0729@yahoo.fr"/>
+				<input type="hidden" name="item_name" value="Duplicates Google Photos"/>
+				<input type="hidden" name="currency_code" value="USD"/>
+				<input type="image" src="https://www.paypalobjects.com/en_US/FR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button"/>
+				<img alt="" border="0" src="https://www.paypal.com/en_FR/i/scr/pixel.gif" width="1" height="1"/>
+			</form>
+		</header>
+		<div class="loading-dialog">
+			<h1>Loading ...</h1>
+			<p class="load-message">If you're happy with that tool without any ads (wow !), you can support me and
+								donate 1$, 1€, 1₹ or anything you want.</p>
+			<p class="load-message">It's at the top right of this page.</p>
+			<p class="load-message">Thank you for your help!</p>
+			<div class="mdl-spinner mdl-js-spinner is-active"></div>
+		</div>
+
+
 		{% block body %}{% endblock %}
 		{% for label, messages in app.flashes %}
 			{% for message in messages %}

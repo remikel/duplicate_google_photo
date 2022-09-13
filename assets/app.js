@@ -13,7 +13,6 @@ import './bootstrap';
 import './scripts/materialize-int.js';
 
 $('#checkAll').on('click', function () {
-    console.log('check');
     if ($(this).is(':checked')) {
         $('.rowToDelete').attr('checked', true);
     } else {
@@ -26,4 +25,7 @@ $('#deleteRows').on('click', function () {
             $(this).parent().parent().parent().fadeOut();
         }
     })
+})
+$('#search').on('submit', function(){
+    $('.loading-dialog').fadeIn();
 })
