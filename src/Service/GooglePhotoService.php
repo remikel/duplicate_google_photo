@@ -24,7 +24,9 @@ class GooglePhotoService
         $this->client->setAuthConfig('../oauth_google.json');
         $this->client->addScope('https://www.googleapis.com/auth/photoslibrary.readonly');
         $this->client->addScope('profile');
-        $this->client->setRedirectUri('http://localhost:8000/auth/google/callback');
+        $redirectUrl = json_decode(file_get_contents('../oauth_google.json'), true)["web"]["redirect_uris"][0];
+
+        $this->client->setRedirectUri($redirectUrl);
     }
     public function auth()
     {
