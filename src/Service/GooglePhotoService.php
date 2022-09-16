@@ -21,7 +21,7 @@ class GooglePhotoService
         $this->pagesize = $pagesize;
         $this->client = new Client();
         // TODO mettre chemin relatif ou récupérer données autrement style via conf
-        $this->client->setAuthConfig('../../duplicate_google_photo/oauth_google.json');
+        $this->client->setAuthConfig('../oauth_google.json');
         $this->client->addScope('https://www.googleapis.com/auth/photoslibrary');
         $this->client->addScope('https://www.googleapis.com/auth/photoslibrary.appendonly');
         $this->client->addScope('https://www.googleapis.com/auth/photoslibrary.sharing');
@@ -46,7 +46,7 @@ class GooglePhotoService
     {
         $session = new Session();
         $refreshToken = $session->get('refresh_token');
-        $jsonKey = json_decode(file_get_contents('../../duplicate_google_photo/oauth_google.json'), true)["web"];
+        $jsonKey = json_decode(file_get_contents('../oauth_google.json'), true)["web"];
         $jsonKey['refresh_token'] = $refreshToken;
         $authCredentials = new UserRefreshCredentials($this->client->getScopes(), $jsonKey);
         $photosLibraryClient = new PhotosLibraryClient(['credentials' => $authCredentials]);
