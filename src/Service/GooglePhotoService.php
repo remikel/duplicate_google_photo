@@ -22,10 +22,7 @@ class GooglePhotoService
         $this->client = new Client();
         // TODO mettre chemin relatif ou récupérer données autrement style via conf
         $this->client->setAuthConfig('../oauth_google.json');
-        $this->client->addScope('https://www.googleapis.com/auth/photoslibrary');
-        $this->client->addScope('https://www.googleapis.com/auth/photoslibrary.appendonly');
-        $this->client->addScope('https://www.googleapis.com/auth/photoslibrary.sharing');
-        $this->client->addScope('https://www.googleapis.com/auth/photoslibrary.edit.appcreateddata');
+        $this->client->addScope('https://www.googleapis.com/auth/photoslibrary.readonly');
         $this->client->addScope('profile');
         $this->client->setRedirectUri('http://localhost:8000/auth/google/callback');
     }
