@@ -7,14 +7,21 @@
 	</div>
 </div>
 {% for photos in photoPairs %}
-	<div class="row">
-		<div class="col s1">
-			<label>
-				<input type="checkbox" name="todelete[]" class="rowToDelete"/>
-				<span></span>
-			</label>
+	<div class="row" id="line{{loop.index}}">
+		<div class="col s2">
+			<div class="row">
+				<div class="col s1">
+					<label>
+						<input type="checkbox" name="todelete[]" class="rowToDelete"/>
+						<span></span>
+					</label>
+				</div>
+				<div class="col s1">
+					<button class="btn btn-primary hideButton" data-id="line{{loop.index}}">Hide this line</button>
+				</div>
+			</div>
 		</div>
-		<div class="col s6">
+		<div class="col s5">
 			<a href="{{photos[0].getProductUrl()}}" target="_blank">
 				<img src="{{photos[0].getBaseUrl()}}=w256-h256" alt="{{photos[0].filename}}"/>
 			</a>
@@ -36,7 +43,6 @@
 		</div>
 	</div>
 {% endfor %}
-
 <button class="waves-effect waves-light btn red" id="deleteRows">
 	<i class="material-icons">visibility_off</i>
 	<span class="float-btn-label">Hide the selected rows</span>

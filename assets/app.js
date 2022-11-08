@@ -29,3 +29,6 @@ $('#deleteRows').on('click', function () {
 $('#search').on('submit', function(){
     $('.loading-dialog').fadeIn();
 })
+$('.hideButton').on('click', function () {
+    $('#' + $(this).data('id')).fadeOut();
+})
