@@ -176,21 +176,35 @@ class GooglePhotoService
             return $photos;
         }
         $compares = $parameters['compares'];
+        $onlytwo = isset($parameters['onlytwo']);
         $links = [];
         $length = count($photos);
         for ($i = 0; $i < $length; $i++) {
             $photo1 = $photos[$i];
+            $mediaData1 = $photo1->getMediaMetadata();
             for ($j = $i; $j < $length; $j++) {
+                $inLinks = false;
                 $photo2 = $photos[$j];
-                $mediaData1 = $photo1->getMediaMetadata();
                 $mediaData2 = $photo2->getMediaMetadata();
-                $same = $this->isSame($photo1, $photo2, $mediaData1, $mediaData2, $compares);
-                if ($same) {
-                    if ($mediaData1->getWidth() > $mediaData2->getWidth()) {
-                        $links[] = [$photo1, $photo2];
-                    } else {
-                        $links[] = [$photo2, $photo1];
+                $lengthLinks = count($links);
+                if (!$onlytwo && $lengthLinks > 0){
+                    for($k = 0; $k <$lengthLinks; $k++){
+                        $same = $this->isSame($links[$k][0], $photo2, $links[$k][0]->getMediaMetadata(), $mediaData2, $compares);
+                        if ($same) {
+                            $links[$k][] = $photo2;
+                            $inLinks = true;
+                        }        
                     }
+                }
+                if (!$inLinks){
+                    $same = $this->isSame($photo1, $photo2, $mediaData1, $mediaData2, $compares);
+                    if ($same) {
+                        if ($mediaData1->getWidth() > $mediaData2->getWidth()) {
+                            $links[] = [$photo1, $photo2];
+                        } else {
+                            $links[] = [$photo2, $photo1];
+                        }
+                    }    
                 }
             }
         }
