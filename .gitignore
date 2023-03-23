@@ -9,7 +9,7 @@
 /public/bundles/
 /var/
 /vendor/
-/oauth_google.json
+oauth_google.json
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
