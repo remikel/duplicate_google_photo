@@ -1,47 +1,55 @@
 <div class="row">
 	<div class="col s6">
 		<label>
-			<input type="checkbox" name="checkAll" id="checkAll"/>
+			<input type="checkbox" name="checkAll" id="checkAll" />
 			<span class="global-checkbox">Check all</span>
 		</label>
 	</div>
 </div>
 {% for photos in photoPairs %}
-	<div class="row" id="line{{loop.index}}">
-		<div class="col s2">
-			<div class="row">
-				<div class="col s1">
-					<label>
-						<input type="checkbox" name="todelete[]" class="rowToDelete"/>
-						<span></span>
-					</label>
-				</div>
-				<div class="col s1">
-					<button class="btn btn-primary hideButton" data-id="line{{loop.index}}">Hide this line</button>
-				</div>
+<div class="row" id="line{{loop.index}}">
+	<div class="col s2">
+		<div class="row">
+			<div class="col s1">
+				<label>
+					<input type="checkbox" name="todelete[]" class="rowToDelete" />
+					<span></span>
+				</label>
+			</div>
+			<div class="col s1">
+				<button class="btn btn-primary hideButton" data-id="line{{loop.index}}">Hide this line</button>
 			</div>
 		</div>
-		<div class="col s5">
-			<a href="{{photos[0].getProductUrl()}}" target="_blank">
-				<img src="{{photos[0].getBaseUrl()}}=w256-h256" alt="{{photos[0].filename}}"/>
-			</a>
-			<legend>
-				<b>{{photos[0].filename}}</b>
-				{{photos[0].getMediaMetadata().creationTime.seconds|date("d M Y h:i:s", false) }}
-				<i>{{ photos[0].getMediaMetadata().width ~ 'x' ~ photos[0].getMediaMetadata().height  }}</i>
-			</legend>
-		</div>
-		<div class="col s5">
-			<a href="{{photos[1].getProductUrl()}}" target="_blank">
-				<img src="{{photos[1].getBaseUrl()}}=w256-h256" alt="{{photos[1].filename}}"/>
-			</a>
-			<legend>
-				<b>{{photos[1].filename}}</b>
-				{{photos[1].getMediaMetadata().creationTime.seconds|date("d M Y h:i:s", false) }}
-				<i>{{ photos[1].getMediaMetadata().width ~ 'x' ~ photos[1].getMediaMetadata().height  }}</i>
-			</legend>
-		</div>
 	</div>
+	{% if onlytwo is defined and onlytwo %}
+		{% for photo in photos %}
+		<div class="col s5">
+			<a href="{{photo.getProductUrl()}}" target="_blank">
+				<img src="{{photo.getBaseUrl()}}=w256-h256" alt="{{photo.filename}}" />
+			</a>
+			<legend>
+				<b>{{photo.filename}}</b>
+				{{photo.getMediaMetadata().creationTime.seconds|date("d M Y h:i:s", false) }}
+				<i>{{ photo.getMediaMetadata().width ~ 'x' ~ photo.getMediaMetadata().height }}</i>
+			</legend>
+		</div>
+		{% endfor %}
+	{% else %}
+		{% set length = photos | length %}
+		{% for photo in photos %}
+		<div class="col s{{10 // length}}">
+			<a href="{{photo.getProductUrl()}}" target="_blank">
+				<img src="{{photo.getBaseUrl()}}=w256-h256" alt="{{photo.filename}}" />
+			</a>
+			<legend>
+				<b>{{photo.filename}}</b>
+				{{photo.getMediaMetadata().creationTime.seconds|date("d M Y h:i:s", false) }}
+				<i>{{ photo.getMediaMetadata().width ~ 'x' ~ photo.getMediaMetadata().height }}</i>
+			</legend>
+		</div>
+		{% endfor %}
+	{% endif %}
+</div>
 {% endfor %}
 <button class="waves-effect waves-light btn red" id="deleteRows">
 	<i class="material-icons">visibility_off</i>

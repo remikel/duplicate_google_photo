@@ -11,11 +11,11 @@
 				<div class="row">
 
 					<label class="col s2" for="creationTime">
-						<input type="checkbox" name="compares[]" id="creationTime" class="mdl-checkbox__input" value="mediaData.creationTime" checked>
+						<input type="checkbox" name="compares[]" id="creationTime" class="mdl-checkbox__input" value="mediaData.creationTime">
 						<span class="mdl-checkbox__label">Date and Time</span>
 					</label>
 					<label class="col s2" for="filename">
-						<input type="checkbox" name="compares[]" id="filename" class="mdl-checkbox__input" value="filename" checked>
+						<input type="checkbox" name="compares[]" id="filename" class="mdl-checkbox__input" value="filename">
 						<span class="mdl-checkbox__label">Filename</span>
 					</label>
 					<label class="col s2" for="camera">
@@ -33,6 +33,10 @@
 					<label class="col s2" for="pixelMatch">
 						<input type="checkbox" name="compares[]" id="pixelMatch" class="mdl-checkbox__input" value="pixelMatch">
 						<span class="mdl-checkbox__label">Check pixels (bêta, very slow)</span>
+					</label>
+					<label class="col s2" for="onlytwo">
+						<input type="checkbox" name="onlytwo" id="onlytwo" class="mdl-checkbox__input" value="onlytwo" checked>
+						<span class="mdl-checkbox__label">Only two by two</span>
 					</label>
 				</div>
 			</div>
@@ -58,7 +62,7 @@
 					<div class="col s4">
 
 						<div class="mdl-textfield mdl-js-textfield">
-							<input required class="mdl-textfield__input" type="text" name="photosToLoad" value="1000"/>
+							<input required class="mdl-textfield__input" type="number" name="photosToLoad" min="100" max="5000" value="100"/>
 						</div>
 					</div>
 				</div>
@@ -70,13 +74,13 @@
 				<div class="row">
 					<div class="col s4">
 						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="startYear" name="startYear">
+							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="startYear" name="startYear" value="2023">
 							<label class="mdl-textfield__label" for="startYear">Year (YYYY)</label>
 						</div>
 					</div>
 					<div class="col s4">
 						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="startMonth" name="startMonth">
+							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="startMonth" name="startMonth" value="03">
 							<label class="mdl-textfield__label" for="startMonth">Month (MM)</label>
 						</div>
 					</div>
@@ -92,7 +96,7 @@
 				<div class="row">
 					<div class="col s4">
 						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="endYear" name="endYear">
+							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="endYear" name="endYear" value="2023" value="03">
 							<label class="mdl-textfield__label" for="endYear">Year (YYYY)</label>
 						</div>
 					</div>
