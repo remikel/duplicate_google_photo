@@ -202,7 +202,7 @@ class GooglePhotoService
                     }
                 }
                 if (isset($links[$photo1->getId()])){
-                    usort($links[$photo1->getId()], fn($a, $b) => strcmp($a->getMediaMetadata()->getWidth(), $b->getMediaMetadata()->getWidth()));
+                    usort($links[$photo1->getId()], fn($a, $b) => $a->getMediaMetadata()->getWidth() < $b->getMediaMetadata()->getWidth());
                 }
             }
         }
