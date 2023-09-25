@@ -4,144 +4,151 @@
 {% endblock %}
 
 {% block body %}
-	<section class="page-content">
-		<form id="search" method="POST">
-			<div class="filter-group">
-				<h4>Duplicate if the same :</h4>
-				<div class="row">
-
-					<label class="col s2" for="creationTime">
-						<input type="checkbox" name="compares[]" id="creationTime" class="mdl-checkbox__input" value="mediaData.creationTime" checked>
-						<span class="mdl-checkbox__label">Date and Time</span>
-					</label>
-					<label class="col s2" for="filename">
-						<input type="checkbox" name="compares[]" id="filename" class="mdl-checkbox__input" value="filename" checked>
-						<span class="mdl-checkbox__label">Filename</span>
-					</label>
-					<label class="col s2" for="camera">
-						<input type="checkbox" name="compares[]" id="camera" class="mdl-checkbox__input" value="mediaData.photo.cameraModel" checked>
-						<span class="mdl-checkbox__label">Camera Model</span>
-					</label>
-					<label class="col s2" for="height">
-						<input type="checkbox" name="compares[]" id="height" class="mdl-checkbox__input" value="mediaData.height">
-						<span class="mdl-checkbox__label">Height</span>
-					</label>
-					<label class="col s2" for="width">
-						<input type="checkbox" name="compares[]" id="width" class="mdl-checkbox__input" value="mediaData.width">
-						<span class="mdl-checkbox__label">Width</span>
-					</label>
-					{# <label class="col s2" for="pixelMatch">
-						<input type="checkbox" name="compares[]" id="pixelMatch" class="mdl-checkbox__input" value="pixelMatch">
-						<span class="mdl-checkbox__label">Check pixels (bêta, very slow)</span>
-					</label> #}
-				</div>
+<section class="page-content">
+	<form id="search" method="POST">
+		<div class="filter-group">
+			<h4>Duplicate if the same :</h4>
+			<div class="row">
+				<label class="col s2" for="creationTime">
+					<input type="checkbox" name="compares[]" id="creationTime" class="mdl-checkbox__input"
+						value="mediaData.creationTime" {% if parameters is not defined or 'mediaData.creationTime' in
+						parameters.compares %} checked {% endif %}>
+					<span class="mdl-checkbox__label">Date and Time</span>
+				</label>
+				<label class="col s2" for="filename">
+					<input type="checkbox" name="compares[]" id="filename" class="mdl-checkbox__input" value="filename"
+						{% if parameters is not defined or 'filename' in parameters.compares %} checked {% endif %}>
+					<span class="mdl-checkbox__label">Filename</span>
+				</label>
+				<label class="col s2" for="camera">
+					<input type="checkbox" name="compares[]" id="camera" class="mdl-checkbox__input"
+						value="mediaData.photo.cameraModel" {% if parameters is not defined
+						or 'mediaData.photo.cameraModel' in parameters.compares %} checked {% endif %}>
+					<span class="mdl-checkbox__label">Camera Model</span>
+				</label>
+				<label class="col s2" for="height">
+					<input type="checkbox" name="compares[]" id="height" class="mdl-checkbox__input"
+						value="mediaData.height" {% if parameters is defined and 'mediaData.height' in
+						parameters.compares %} checked {% endif %}>
+					<span class="mdl-checkbox__label">Height</span>
+				</label>
+				<label class="col s2" for="width">
+					<input type="checkbox" name="compares[]" id="width" class="mdl-checkbox__input"
+						value="mediaData.width" {% if parameters is defined and 'mediaData.width' in
+						parameters.compares %} checked {% endif %}>
+					<span class="mdl-checkbox__label">Width</span>
+				</label>
+				<label class="col s2" for="pixelMatch">
+					<input type="checkbox" name="compares[]" id="pixelMatch" class="mdl-checkbox__input"
+						value="pixelMatch" {% if parameters is defined and 'pixelMatch' in
+						parameters.compares %} checked {% endif %}>
+					<span class="mdl-checkbox__label">Check pixels (bêta, very slow)</span>
+				</label>
+				<label class="col s2" for="onlytwo">
+					<input type="checkbox" name="onlytwo" id="onlytwo" class="mdl-checkbox__input" 
+					value="onlytwo" {% if parameters is not defined or parameters.onlytwo is defined %} checked {% endif %}>
+					<span class="mdl-checkbox__label">Only two by two</span>
+				</label>
 			</div>
+		</div>
 
-			{# <div class="filter-group">
-				<h4>Type of medias:</h4>
-				<div class="row">
+		<div class="filter-group">
+			<h4>Number of media to check, more you put, longer it is</h4>
+			<div class="row">
+				<div class="col s4">
 
-					<label class="col s2" for="photo">
-						<input type="radio" name="type" id="photo" class="mdl-radio__button" value="PHOTO" checked>
-						<span class="mdl-radio__label">Photos</span>
-					</label>
-					<label class="col s2" for="video">
-						<input type="radio" name="type" id="video" class="mdl-radio__button" value="VIDEO">
-						<span class="mdl-radio__label">videos</span>
-					</label>
-				</div>
-			</div> #}
-
-			<div class="filter-group">
-				<h4>Number of media to check, more you put, longer it is</h4>
-				<div class="row">
-					<div class="col s4">
-
-						<div class="mdl-textfield mdl-js-textfield">
-							<input required class="mdl-textfield__input" type="text" name="photosToLoad" value="1000"/>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<h4>So it's better to split by time (from 2021 to 2022 for example)</h4>
-			<div id="rowDateRange">
-				<h5>Start date</h5>
-				<div class="row">
-					<div class="col s4">
-						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="startYear" name="startYear">
-							<label class="mdl-textfield__label" for="startYear">Year (YYYY)</label>
-						</div>
-					</div>
-					<div class="col s4">
-						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="startMonth" name="startMonth">
-							<label class="mdl-textfield__label" for="startMonth">Month (MM)</label>
-						</div>
-					</div>
-					<div class="col s4">
-						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="startDay" name="startDay">
-							<label class="mdl-textfield__label" for="startDay">Day (DD)</label>
-						</div>
-					</div>
-				</div>
-
-				<h5>End date</h5>
-				<div class="row">
-					<div class="col s4">
-						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="endYear" name="endYear">
-							<label class="mdl-textfield__label" for="endYear">Year (YYYY)</label>
-						</div>
-					</div>
-					<div class="col s4">
-						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="endMonth" name="endMonth">
-							<label class="mdl-textfield__label" for="endMonth">Month (MM)</label>
-						</div>
-					</div>
-					<div class="col s4">
-						<div class="mdl-textfield mdl-js-textfield">
-							<input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="endDay" name="endDay">
-							<label class="mdl-textfield__label" for="endDay">Day (DD)</label>
-						</div>
+					<div class="mdl-textfield mdl-js-textfield">
+						<input required class="mdl-textfield__input" type="number" name="photosToLoad" min="100"
+							max="5000" value="{{ parameters.photosToLoad | default(1000) }}" />
 					</div>
 				</div>
 			</div>
-			<div>
-				<button type="submit" class="waves-effect waves-light btn">
-					<i class="material-icons">search</i>
-					<span class="float-btn-label">Search duplicates</span>
-				</button>
-			</div>
-		</form>
-		{% if searched %}
-			<div>
-				<h2>Duplicates</h2>
-				<p class="subhead mdl-color-text--grey-700">
-					Select the rows where the pictures are NOT the same, hide these rows with the button below. 
-					The best resolution should be on the left column so, click on the picture on the right, 
-					it will open a new tab in your Google Photo, you can delete it manually by clicking on the trash icon
-					in the top right corner.
-				</p>
-				<p>
-					You have too many pictures ? Use a mouse clicker to automate it like this one
-					<a href="https://sourceforge.net/projects/minimousemacro/">Mini mouse macro</a>.
-					Follow my youtube video if you need help to understand.
-				</p>
-			</div>
-			{% if photoPairs|length > 0 %}
-				<div id="images-container">
-					{% include 'index/partials/list.html.twig' with { 'photoPairs': photoPairs } %}
+		</div>
+
+		<h4>So it's better to split by time (from 2021 to 2022 for example)</h4>
+		<div id="rowDateRange">
+			<h5>Start date</h5>
+			<div class="row">
+				<div class="col s4">
+					<div class="mdl-textfield mdl-js-textfield">
+						<input class="mdl-textfield__input" type="number" id="startYear"
+							value="{{ parameters.startYear | default(2023) }}" name="startYear">
+						<label class="mdl-textfield__label" for="startYear">Year (YYYY)</label>
+					</div>
 				</div>
-			{% else %}
-				<div id="images_empty">
-					<img src="/imgs/null-results.png">
-					<p>No results, try searching again</p>
+				<div class="col s4">
+					<div class="mdl-textfield mdl-js-textfield">
+						<input class="mdl-textfield__input" type="number" id="startMonth" min="1" max="12"
+							value="{{ parameters.startMonth | default(3) }}" name="startMonth">
+						<label class="mdl-textfield__label" for="startMonth">Month (MM)</label>
+					</div>
 				</div>
-			{% endif %}
-		{% endif %}
-	</section>
+				<div class="col s4">
+					<div class="mdl-textfield mdl-js-textfield">
+						<input class="mdl-textfield__input" type="number" id="startDay" min="1" max="31"
+							value="{{ parameters.startDay | default() }}" name="startDay">
+						<label class="mdl-textfield__label" for="startDay">Day (DD)</label>
+					</div>
+				</div>
+			</div>
+
+			<h5>End date</h5>
+			<div class="row">
+				<div class="col s4">
+					<div class="mdl-textfield mdl-js-textfield">
+						<input class="mdl-textfield__input" type="number" id="endYear"
+							value="{{ parameters.endYear | default(2023) }}" name="endYear">
+						<label class="mdl-textfield__label" for="endYear">Year (YYYY)</label>
+					</div>
+				</div>
+				<div class="col s4">
+					<div class="mdl-textfield mdl-js-textfield">
+						<input class="mdl-textfield__input" type="number" id="endMonth" min="1" max="12"
+							value="{{ parameters.endMonth | default(3) }}" name="endMonth">
+						<label class="mdl-textfield__label" for="endMonth">Month (MM)</label>
+					</div>
+				</div>
+				<div class="col s4">
+					<div class="mdl-textfield mdl-js-textfield">
+						<input class="mdl-textfield__input" type="number" id="endDay" min="1" max="31"
+							value="{{ parameters.endDay | default() }}" name="endDay">
+						<label class="mdl-textfield__label" for="endDay">Day (DD)</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<button type="submit" class="waves-effect waves-light btn">
+				<i class="material-icons">search</i>
+				<span class="float-btn-label">Search duplicates</span>
+			</button>
+		</div>
+	</form>
+	{% if searched %}
+	<div>
+		<h2>Duplicates</h2>
+		<p class="subhead mdl-color-text--grey-700">
+			Select the rows where the pictures are NOT the same, hide these rows with the button below.
+			The best resolution should be on the left column so, click on the picture on the right,
+			it will open a new tab in your Google Photo, you can delete it manually by clicking on the trash icon
+			in the top right corner.
+		</p>
+		<p>
+			You have too many pictures ? Use a mouse clicker to automate it like this one
+			<a href="https://sourceforge.net/projects/minimousemacro/">Mini mouse macro</a>.
+			Follow my youtube video if you need help to understand.
+		</p>
+	</div>
+	{% if photoPairs|length > 0 %}
+	<div id="images-container">
+		{% include 'index/partials/list.html.twig' with { 'photoPairs': photoPairs } %}
+	</div>
+	{% else %}
+	<div id="images_empty">
+		<img src="/imgs/null-results.png">
+		<p>No results, try searching again</p>
+	</div>
+	{% endif %}
+	{% endif %}
+</section>
 {% endblock %}

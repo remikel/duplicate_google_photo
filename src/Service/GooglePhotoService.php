@@ -94,7 +94,7 @@ class GooglePhotoService
         $filtersBuilder->addDateRange($startDate, $endDate);
 
         // if ($parameters['type'] == 'PHOTO') {
-            $filtersBuilder->setMediaType(MediaType::PHOTO);
+        $filtersBuilder->setMediaType(MediaType::PHOTO);
         // } else {
         //     $filtersBuilder->setMediaType(MediaType::VIDEO);
         // }
@@ -141,9 +141,10 @@ class GooglePhotoService
         }
     }
 
-    private function isSame($photo1, $photo2, $mediaData1, $mediaData2, $compares)
+    private function isSame($photo1, $photo2, $compares)
     {
-
+        $mediaData1 = $photo1->getMediaMetadata();
+        $mediaData2 = $photo2->getMediaMetadata();
         $same = true;
         if (in_array('mediaData.creationTime', $compares) && ($mediaData1->getCreationTime() != $mediaData2->getCreationTime())) {
             $same = false;
@@ -161,7 +162,7 @@ class GooglePhotoService
         }
         if ($same && in_array('pixelMatch', $compares)) {
             $diff = $this->comparePixels($photo1, $photo2);
-            if ($diff < 0.95){
+            if ($diff < 0.95) {
                 $same = false;
             }
         }
@@ -176,21 +177,32 @@ class GooglePhotoService
             return $photos;
         }
         $compares = $parameters['compares'];
+        $onlytwo = isset($parameters['onlytwo']);
         $links = [];
         $length = count($photos);
         for ($i = 0; $i < $length; $i++) {
-            $photo1 = $photos[$i];
-            for ($j = $i; $j < $length; $j++) {
-                $photo2 = $photos[$j];
-                $mediaData1 = $photo1->getMediaMetadata();
-                $mediaData2 = $photo2->getMediaMetadata();
-                $same = $this->isSame($photo1, $photo2, $mediaData1, $mediaData2, $compares);
-                if ($same) {
-                    if ($mediaData1->getWidth() > $mediaData2->getWidth()) {
-                        $links[] = [$photo1, $photo2];
-                    } else {
-                        $links[] = [$photo2, $photo1];
+            if (isset($photos[$i])) {
+                $photo1 = $photos[$i];
+                for ($j = $i; $j < $length; $j++) {
+                    if (isset($photos[$j])) {
+                        $photo2 = $photos[$j];
+                        if ($this->isSame($photo1, $photo2, $compares)) {
+                            if ($onlytwo){
+                                $links[$photo1->getId()] = [$photo1, $photo2];
+                            }
+                            else {
+                                unset($photos[$j]);
+                                if (isset($links[$photo1->getId()])) {
+                                    $links[$photo1->getId()][] = $photo2;
+                                } else {
+                                    $links[$photo1->getId()] = [$photo1, $photo2];
+                                }    
+                            }
+                        }
                     }
+                }
+                if (isset($links[$photo1->getId()])){
+                    usort($links[$photo1->getId()], fn($a, $b) => $a->getMediaMetadata()->getWidth() < $b->getMediaMetadata()->getWidth());
                 }
             }
         }

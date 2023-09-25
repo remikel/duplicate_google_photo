@@ -1,0 +1,16 @@
+{
+    "web": {
+        "client_id": "1752094471-85uolvip7vgosmb0nvreqlam40u1se2f.apps.googleusercontent.com",
+        "project_id": "remidev-1568222449854",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_secret": "BgZn8U3N_LqWqopTrUj8QbEU",
+        "redirect_uris": [
+            "https://duplicates-google-photos.remikel.fr/auth/google/callback"
+        ],
+        "javascript_origins": [
+            "https://duplicates-google-photos.remikel.fr"
+        ]
+    }
+}

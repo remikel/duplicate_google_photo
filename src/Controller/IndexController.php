@@ -51,7 +51,9 @@ class IndexController extends AbstractController
     public function searchDuplicates(Request $request)
     {
         if ($request->isMethod('POST')) {
+            $parameters = $request->request->all();
             $photoPairs = $this->photoService->searchDuplicates($request->request->all());
+            $onlytwo = $request->request->get('onlytwo');
             if (!is_array($photoPairs)) {
                 if (get_class($photoPairs) == 'GuzzleHttp\Exception\ClientException'){
                     $this->addFlash(
@@ -67,6 +69,8 @@ class IndexController extends AbstractController
                     );
                     return $this->render('index/duplicates.html.twig', array(
                         'photoPairs' => [],
+                        'onlytwo' => $onlytwo,
+                        'parameters' => $parameters,
                         'searched' => false
                     ));
                 } else {
@@ -79,6 +83,8 @@ class IndexController extends AbstractController
             }
             return $this->render('index/duplicates.html.twig', array(
                 'photoPairs' => $photoPairs,
+                'onlytwo' => $onlytwo,
+                'parameters' => $parameters,
                 'searched' => true
             ));
         }
