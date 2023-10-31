@@ -3,44 +3,48 @@
 {% block title %}Duplicates in your google Photos{% endblock %}
 
 {% block body %}
-	<main class="demo-main mdl-layout__content">
-		<div class="page-content mdl-grid">
-			<div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-			<div
-				class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
-				<h2>This is <b>NOT</b> a Google Product</h2>
-				<p>It's made by a kind developer named Rémi Mikel who just want to share how he deleted all his
-					duplicates on Google Photos.</p>
-				<h2>It follows the limited use requirements of Google</h2>
-				<p>This app, <i>"delete duplicates on Google Photos",</i> use and transfer to
-					any other app of information received from Google APIs will adhere to 
-					Google API Services User Data Policy, including the Limited Use requirements.</p>
-				<h3>Find your duplicates in Google Photos</h3>
-				<p>Find them all and delete all. Save space, save the planet, save yourself.</p>
-				<p>I had many duplicates because I uploaded pictures from google Drive and Save & Sync App.</p>
-				<p>The delete feature from API doesn't exist for Google Photos and it's not planned yet.
-					Waiting Google create a tool who delete duplicates, here's a good way to make it.
-				</p>
-				<p>Here is a video to explain how to do it :</p>
-                <div class="video">
-				    <iframe width="560" height="315" src="https://www.youtube.com/embed/ULalSu3MPRE" frameborder="0"
+<main class="demo-main mdl-layout__content">
+	<div class="page-content mdl-grid">
+		<div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+		<div
+			class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+			<h2>This is <b>NOT</b> a Google Product</h2>
+			<p>It's made by a kind developer named Rémi Mikel who just want to share how he deleted all his
+				duplicates on Google Photos.</p>
+			<h2>It follows the limited use requirements of Google</h2>
+			<p>This app, <i>"delete duplicates on Google Photos",</i> use and transfer to
+				any other app of information received from Google APIs will adhere <a
+					href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">to
+					Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+			<h3>Find your duplicates in Google Photos</h3>
+			<p>Find them all and delete all. Save space, save the planet, save yourself.</p>
+			<p>I had many duplicates because I uploaded pictures from google Drive and Save & Sync App.</p>
+			<p>The delete feature from API doesn't exist for Google Photos and it's not planned yet.
+				Waiting Google create a tool who delete duplicates, here's a good way to make it.
+			</p>
+			<p>Here is a video to explain how to do it :</p>
+			<div class="video">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/ULalSu3MPRE" frameborder="0"
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 					allowfullscreen></iframe>
-                </div>
-				<h4>Let's start now and connect to your google photos ! None of your datas is saved anywhere. It's fully transparent, fully free, fully respect your anonymity.</h4>
-				<p>
-					<a class="gp-button raised" id="login" href="/connect">
-						Connect to Google Photos
-					</a>
-				</p>
-				<p>This app will connect to your google photos then access to all the pictures to read them, nothing will be modified or deleted.
-					Then the app will help you to find the duplicated pictures and you can decide by yourself if you want to delete the manually.
-					None of your datas will be used for anything by anyone. It's just a program who checks your duplicates.
-				</p>
 			</div>
+			<h4>Let's start now and connect to your google photos ! None of your datas is saved anywhere. It's fully
+				transparent, fully free, fully respect your anonymity.</h4>
+			<p>
+				<a class="gp-button raised" id="login" href="/connect">
+					Connect to Google Photos
+				</a>
+			</p>
+			<p>This app will connect to your google photos then access to all the pictures to read them, nothing will be
+				modified or deleted.
+				Then the app will help you to find the duplicated pictures and you can decide by yourself if you want to
+				delete the manually.
+				None of your datas will be used for anything by anyone. It's just a program who checks your duplicates.
+			</p>
 		</div>
-	</main>
 	</div>
+</main>
+</div>
 
-      <div style="padding:50px; text-align:center; font-size:large"><a href="/privacy">Privacy Policy</a></div>
+<div style="padding:50px; text-align:center; font-size:large"><a href="/privacy">Privacy Policy</a></div>
 {% endblock %}
