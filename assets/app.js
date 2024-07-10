@@ -22,7 +22,8 @@ $('#checkAll').on('click', function () {
 $('#deleteRows').on('click', function () {
     $('.rowToDelete').each(function () {
         if ($(this).is(':checked')) {
-            $(this).parent().parent().parent().fadeOut();
+            console.log($(this).parent().parent().parent().parent());
+            $(this).parent().parent().parent().parent().parent().fadeOut();
         }
     })
 })
