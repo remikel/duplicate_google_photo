@@ -72,20 +72,20 @@
 				<div class="col s4">
 					<div class="mdl-textfield mdl-js-textfield">
 						<input class="mdl-textfield__input" type="number" id="startYear"
-							value="{{ parameters.startYear | default(2024) }}" name="startYear">
+							value="{{ parameters.startYear | default(2025) }}" name="startYear">
 						<label class="mdl-textfield__label" for="startYear">Year (YYYY)</label>
 					</div>
 				</div>
 				<div class="col s4">
 					<div class="mdl-textfield mdl-js-textfield">
 						<input class="mdl-textfield__input" type="number" id="startMonth" min="1" max="12"
-							value="{{ parameters.startMonth | default(7) }}" name="startMonth">
+							value="{{ parameters.startMonth | default(2) }}" name="startMonth">
 						<label class="mdl-textfield__label" for="startMonth">Month (MM)</label>
 					</div>
 				</div>
 				<div class="col s4">
 					<div class="mdl-textfield mdl-js-textfield">
-						<input class="mdl-textfield__input" type="number" id="startDay" min="1" max="31"
+						<input class="mdl-textfield__input" type="number" id="startDay" min="1" max="21"
 							value="{{ parameters.startDay | default() }}" name="startDay">
 						<label class="mdl-textfield__label" for="startDay">Day (DD)</label>
 					</div>
@@ -97,20 +97,20 @@
 				<div class="col s4">
 					<div class="mdl-textfield mdl-js-textfield">
 						<input class="mdl-textfield__input" type="number" id="endYear"
-							value="{{ parameters.endYear | default(2024) }}" name="endYear">
+							value="{{ parameters.endYear | default(2025) }}" name="endYear">
 						<label class="mdl-textfield__label" for="endYear">Year (YYYY)</label>
 					</div>
 				</div>
 				<div class="col s4">
 					<div class="mdl-textfield mdl-js-textfield">
 						<input class="mdl-textfield__input" type="number" id="endMonth" min="1" max="12"
-							value="{{ parameters.endMonth | default(7) }}" name="endMonth">
+							value="{{ parameters.endMonth | default(2) }}" name="endMonth">
 						<label class="mdl-textfield__label" for="endMonth">Month (MM)</label>
 					</div>
 				</div>
 				<div class="col s4">
 					<div class="mdl-textfield mdl-js-textfield">
-						<input class="mdl-textfield__input" type="number" id="endDay" min="1" max="31"
+						<input class="mdl-textfield__input" type="number" id="endDay" min="1" max="21"
 							value="{{ parameters.endDay | default() }}" name="endDay">
 						<label class="mdl-textfield__label" for="endDay">Day (DD)</label>
 					</div>
